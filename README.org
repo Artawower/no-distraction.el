@@ -1,0 +1,145 @@
+:PROPERTIES:
+:ID:       no-distraction.el
+:END:
+
+#+TITLE: 🎯 no-distraction.el — Focus on What Matters
+
+#+html: <div align='center'>
+#+html: <span class='badge-buymeacoffee'>
+#+html: <a href='https://www.paypal.me/darkawower' title='Paypal' target='_blank'><img src='https://img.shields.io/badge/paypal-donate-blue.svg' alt='Buy Me A Coffee donate button' /></a>
+#+html: </span>
+#+html: <span class='badge-patreon'>
+#+html: <a href='https://patreon.com/artawower' target='_blank' title='Donate to this project using Patreon'><img src='https://img.shields.io/badge/patreon-donate-orange.svg' alt='Patreon donate button' /></a>
+#+html: </span>
+#+html: </div>
+
+* Introduction
+Reduce visual noise in your code by dimming less important syntax elements with [[https://tree-sitter.github.io/][Tree-sitter]].
+
+This package provides:
+- Intelligent syntax highlighting that dims distracting language constructs
+- Per-buffer toggle for distraction-free coding
+- Customizable face for dimmed elements
+- Language-specific rules for TypeScript, HTML, and more
+- Minimal performance impact with tree-sitter integration
+
+Focus on the core logic while maintaining full syntax context.
+
+* Connected links
+- [[https://tree-sitter.github.io/][Tree-sitter Documentation]]
+- [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Font-Lock.html][Emacs Font Lock Documentation]]
+- [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Tree_002dsitter.html][Emacs Tree-sitter Documentation]]
+
+* Screenshots
+Before no-distraction
+[[./images/before.png]]
+
+After no-distraction
+[[./images/after.png]]
+
+* Install
+This package requires Emacs 29.1+ with Tree-sitter support.
+
+** Elpaca
+#+BEGIN_SRC emacs-lisp :results silent
+(use-package no-distraction
+  :hook ((typescript-ts-mode html-ts-mode) . no-distraction-mode)
+  :ensure (no-distraction :host github :repo "artawower/no-distraction.el"))
+#+END_SRC
+
+** package-vc (Emacs 29+)
+#+BEGIN_SRC emacs-lisp
+(package-vc-install '(no-distraction :url "https://github.com/artawower/no-distraction.el"))
+
+(use-package no-distraction
+  :hook ((typescript-ts-mode html-ts-mode) . no-distraction-mode))
+#+END_SRC
+
+** Manual
+Download the package and add to your load path:
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path "/path/to/no-distraction.el")
+(require 'no-distraction)
+
+;; Enable automatically for specific modes
+(add-hook 'typescript-ts-mode #'no-distraction-mode)
+(add-hook 'html-ts-mode #'no-distraction-mode)
+#+END_SRC
+
+
+* Customization
+** Face Customization
+Change the appearance of dimmed elements:
+#+BEGIN_SRC emacs-lisp
+(custom-set-faces
+ '(no-distraction-face ((t (:foreground "#666666" :slant italic)))))
+#+END_SRC
+
+** Language Rules
+Define custom highlighting rules for new languages:
+#+BEGIN_SRC emacs-lisp
+;; Add support for JavaScript mode
+(add-to-list 'no-distraction--modes-settings
+             '(js-ts-mode . no-distraction--js-rules))
+
+;; Define custom JavaScript rules
+(defcustom no-distraction--js-rules
+  (no-distraction-get-rule 'javascript
+                           ((function_declaration) "function" @no-distraction-face)
+                           ((var_declaration) "var" @no-distraction-face)
+                           ((let_declaration) "let" @no-distraction-face)
+                           ((const_declaration) "const" @no-distraction-face))
+  "Tree-sitter rules for no-distraction in JavaScript."
+  :group 'no-distraction)
+#+END_SRC
+
+* How it Works
+1. **Tree-sitter Integration**: Uses Emacs' built-in Tree-sitter parser for accurate syntax analysis
+2. **Font Lock Override**: Applies custom highlighting rules with override priority
+3. **State Preservation**: Safely saves and restores original font-lock settings
+4. **Per-buffer Control**: Each buffer maintains independent distraction-free state
+
+* Performance
+- Minimal overhead with Tree-sitter's efficient parsing
+- Rules are applied only when mode is enabled
+- Original settings are preserved and restored cleanly
+- No impact on buffers without Tree-sitter support
+
+* 🍩 Contribute guide
+Any contribution is welcome!
+Please consider reading the style guide and, if you like this project,
+supporting via Patreon. Typical contributions:
+- Bug reports, feature requests
+- Language support for new modes
+- Documentation improvements
+- Code patches
+
+This project is licensed under GPLv3 or later. Make sure your contributions
+are compatible with this license.
+
+* Development
+** Adding New Language Support
+To add support for a new language:
+
+1. Define tree-sitter rules using `no-distraction-get-rule`
+2. Add the rules to `no-distraction--modes-settings`
+3. Test with sample files in that language
+4. Update documentation
+
+Example:
+#+BEGIN_SRC emacs-lisp
+;; Support for Python
+(defcustom no-distraction--python-rules
+  (no-distraction-get-rule 'python
+                           ((function_definition) "def" @no-distraction-face)
+                           ((class_definition) "class" @no-distraction-face)
+                           ((import_statement) "import" @no-distraction-face)
+                           ((import_from_statement) "from" @no-distraction-face))
+  "Tree-sitter rules for no-distraction in Python."
+  :group 'no-distraction)
+
+(add-to-list 'no-distraction--modes-settings
+             '(python-ts-mode . no-distraction--python-rules))
+#+END_SRC
+
+
