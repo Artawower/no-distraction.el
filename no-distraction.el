@@ -54,6 +54,7 @@
                            ((implements_clause) "implements" @no-distraction-face)
                            ((accessibility_modifier) @no-distraction-face)
                            ((member_expression object: (this) @no-distraction-face))
+                           (((identifier) @obj (:match "^console$" @obj)) @no-distraction-face)
                            ((if_statement      "if"      @no-distraction-face))
                            ((else_clause       "else"    @no-distraction-face))
                            ((for_statement     "for"     @no-distraction-face))
@@ -66,6 +67,7 @@
                            ((break_statement   "break"   @no-distraction-face))
                            ((continue_statement "continue" @no-distraction-face))
                            ((throw_statement   "throw"   @no-distraction-face))
+                           ((object (pair key: (property_identifier) @default)))
                            ((yield_expression  "yield"   @no-distraction-face))
                            ((await_expression  "await"   @no-distraction-face))
                            ((comment) @font-lock-builtin-face)
@@ -75,6 +77,7 @@
                            ((this) @no-distraction-face))
   "Tree-sitter rules for no-distraction in TypeScript."
   :group 'no-distraction)
+
 
 (defcustom no-distraction--html-rules
   (no-distraction-get-rule 'html
@@ -86,6 +89,7 @@
 
 (defcustom no-distraction--modes-settings
   '((typescript-ts-mode . no-distraction--ts-rules)
+    (ng2-ts-mode . no-distraction--ts-rules)
     (html-ts-mode       . no-distraction--html-rules))
   "Association list of major modes and their corresponding treesit rules for no-distraction."
   :group 'no-distraction)
