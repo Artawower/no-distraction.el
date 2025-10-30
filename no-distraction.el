@@ -89,6 +89,7 @@
 
 (defcustom no-distraction--modes-settings
   '((typescript-ts-mode . no-distraction--ts-rules)
+    (vue-ts-mode . no-distraction--ts-rules)
     (ng2-ts-mode . no-distraction--ts-rules)
     (html-ts-mode       . no-distraction--html-rules))
   "Association list of major modes and their corresponding treesit rules for no-distraction."
