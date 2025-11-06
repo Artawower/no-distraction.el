@@ -31,11 +31,8 @@ Focus on the core logic while maintaining full syntax context.
 - [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Tree_002dsitter.html][Emacs Tree-sitter Documentation]]
 
 * Screenshots
-Before no-distraction
-[[./images/before.png]]
+[[./images/sample.gif]]
 
-After no-distraction
-[[./images/after.png]]
 
 * Install
 This package requires Emacs 29.1+ with Tree-sitter support.
