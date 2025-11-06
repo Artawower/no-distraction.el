@@ -15,24 +15,10 @@
 
 * Introduction
 Reduce visual noise in your code by dimming less important syntax elements with [[https://tree-sitter.github.io/][Tree-sitter]].
-
-This package provides:
-- Intelligent syntax highlighting that dims distracting language constructs
-- Per-buffer toggle for distraction-free coding
-- Customizable face for dimmed elements
-- Language-specific rules for TypeScript, HTML, and more
-- Minimal performance impact with tree-sitter integration
-
 Focus on the core logic while maintaining full syntax context.
-
-* Connected links
-- [[https://tree-sitter.github.io/][Tree-sitter Documentation]]
-- [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Font-Lock.html][Emacs Font Lock Documentation]]
-- [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Tree_002dsitter.html][Emacs Tree-sitter Documentation]]
 
 * Screenshots
 [[./images/sample.gif]]
-
 
 * Install
 This package requires Emacs 29.1+ with Tree-sitter support.
@@ -89,30 +75,6 @@ Define custom highlighting rules for new languages:
   "Tree-sitter rules for no-distraction in JavaScript."
   :group 'no-distraction)
 #+END_SRC
-
-* How it Works
-1. **Tree-sitter Integration**: Uses Emacs' built-in Tree-sitter parser for accurate syntax analysis
-2. **Font Lock Override**: Applies custom highlighting rules with override priority
-3. **State Preservation**: Safely saves and restores original font-lock settings
-4. **Per-buffer Control**: Each buffer maintains independent distraction-free state
-
-* Performance
-- Minimal overhead with Tree-sitter's efficient parsing
-- Rules are applied only when mode is enabled
-- Original settings are preserved and restored cleanly
-- No impact on buffers without Tree-sitter support
-
-* 🍩 Contribute guide
-Any contribution is welcome!
-Please consider reading the style guide and, if you like this project,
-supporting via Patreon. Typical contributions:
-- Bug reports, feature requests
-- Language support for new modes
-- Documentation improvements
-- Code patches
-
-This project is licensed under GPLv3 or later. Make sure your contributions
-are compatible with this license.
 
 * Development
 ** Adding New Language Support
