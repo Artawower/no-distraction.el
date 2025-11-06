@@ -100,11 +100,42 @@
   "Tree-sitter rules for no-distraction in HTML."
   :group 'no-distraction)
 
+(defcustom no-distraction--go-rules
+  (no-distraction-get-rule 'go
+                           ((import_declaration "import" @no-distraction-face))
+                           ((type_declaration "type" @no-distraction-face))
+                           ((struct_type "struct" @no-distraction-face))
+                           ((interface_type "interface" @no-distraction-face))
+                           ((if_statement "if" @no-distraction-face))
+                           ((for_statement "for" @no-distraction-face))
+                           ((expression_switch_statement "switch" @no-distraction-face))
+                           ((expression_case "case" @no-distraction-face))
+                           ((select_statement "select" @no-distraction-face))
+                           ((communication_case "case" @no-distraction-face))
+                           ((go_statement "go" @no-distraction-face))
+                           ((func_literal "func" @no-distraction-face))
+                           ([ "(" ")" "[" "]" "{" "}" ";" ":" "<" ">" "," ] @no-distraction-face)
+                           ((package_clause "package" @no-distraction-face))
+                           ((method_declaration "func" @no-distraction-face))
+                           ((var_declaration "var" @no-distraction-face))
+                           ((method_declaration receiver: (parameter_list) @no-distraction-face))
+                           ((if_statement
+                             condition: (binary_expression
+                                         left: (identifier) @var
+                                         operator: "!="
+                                         right: (nil))
+                             (:match "^err$" @var)
+                             ) @no-distraction-face)
+                           ((function_declaration "func" @no-distraction-face)))
+  "Tree-sitter rules for no-distraction in HTML."
+  :group 'no-distraction)
+
 
 (defcustom no-distraction--modes-settings
   '((typescript-ts-mode . no-distraction--ts-rules)
     (vue-ts-mode . no-distraction--ts-rules)
     (ng2-ts-mode . no-distraction--ts-rules)
+    (go-ts-mode       . no-distraction--go-rules)
     (html-ts-mode       . no-distraction--html-rules))
   "Association list of major modes and their corresponding treesit rules for no-distraction."
   :group 'no-distraction)
