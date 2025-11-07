@@ -84,6 +84,7 @@
                            ((with_statement "with" @no-distraction-face))
                            ((debugger_statement "debugger" @no-distraction-face))
                            ((function_declaration "async" @no-distraction-face))
+                           ((function_declaration "function" @no-distraction-face))
                            ((arrow_function "async" @no-distraction-face))
                            ((method_definition "async" @no-distraction-face))
                            ((function_expression "async" @no-distraction-face))
