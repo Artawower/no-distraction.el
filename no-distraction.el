@@ -97,7 +97,12 @@
 (defcustom no-distraction--html-rules
   (no-distraction-get-rule 'html
                            ((tag_name) @no-distraction-face)
-                           ([ "(" ")" "[" "]" "{" "}" ";" ":" "<" ">" "," ] @no-distraction-face))
+                           ((start_tag "<" @no-distraction-face))
+                           ((start_tag ">" @no-distraction-face))
+                           ((end_tag "</" @no-distraction-face))
+                           ((end_tag ">" @no-distraction-face))
+                           ((self_closing_tag "<" @no-distraction-face))
+                           ((self_closing_tag "/>" @no-distraction-face)))
   "Tree-sitter rules for no-distraction in HTML."
   :group 'no-distraction)
 
